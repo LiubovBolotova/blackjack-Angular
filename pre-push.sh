@@ -13,9 +13,6 @@ then
   git stash --quiet -u;
 fi;
 
-echo "Checking if en.json changed...";
-node ./node_modules/crowdin-helper/crowdin-helper pre-push
-
 echo "TSLint check...";
 npm run lint && echo -e "$All fine!${NC}"
 RESULT=$?;
