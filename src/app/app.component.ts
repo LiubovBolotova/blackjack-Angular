@@ -194,7 +194,6 @@ export class AppComponent {
       suit: 'diamond',
     },
   ];
-
   public bankerCards: TCard[] = [];
   public gamerCards: TCard[] = [];
   public bankerResult: number;
@@ -205,31 +204,24 @@ export class AppComponent {
   public showBankerCards: boolean = false;
   public showGameResult: boolean = false;
   public gameResult: string;
-  private newDeckOfCards: TCard[] = [];
 
-  private constructor() {}
-  private takeRandomCard(playerHand: TCard[], deckOfCards: TCard[]): void {
-    const randomNum: number = Math.floor(Math.random() * (this.deckOfCards.length - 1) + 1);
-    const card: TCard = deckOfCards[randomNum];
-    playerHand.push(card);
-    deckOfCards.splice(randomNum, 1);
-  }
+  private _newDeckOfCards: TCard[] = [];
 
+  public constructor() {}
   public startGame(): void {
     this.showBankerCards = false;
     this.showGameResult = false;
-    this.newDeckOfCards = this.deckOfCards.slice();
+    this._newDeckOfCards = this.deckOfCards.slice();
     this.bankerCards = [];
     this.gamerCards = [];
-    this.takeRandomCard(this.gamerCards, this.newDeckOfCards);
-    this.takeRandomCard(this.bankerCards, this.newDeckOfCards);
+    this._takeRandomCard(this.gamerCards, this._newDeckOfCards);
+    this._takeRandomCard(this.bankerCards, this._newDeckOfCards);
     this.isStartGame = true;
   }
-
   public giveCards(): void {
-    this.takeRandomCard(this.gamerCards, this.deckOfCards);
-    this.gamerResult = this.countResult(this.gamerCards);
-    this.bankerResult = this.countResult(this.bankerCards);
+    this._takeRandomCard(this.gamerCards, this.deckOfCards);
+    this.gamerResult = this._countResult(this.gamerCards);
+    this.bankerResult = this._countResult(this.bankerCards);
 
     if (this.gamerResult > 21) {
       this.isStopTakingCards = true;
@@ -247,8 +239,8 @@ export class AppComponent {
       this.startGameText = 'Start New Game?';
     } else {
       if (this.bankerResult < 15) {
-        this.takeRandomCard(this.bankerCards, this.newDeckOfCards);
-        this.countResult(this.bankerCards);
+        this._takeRandomCard(this.bankerCards, this._newDeckOfCards);
+        this._countResult(this.bankerCards);
       } else {
         return;
       }
@@ -269,28 +261,15 @@ export class AppComponent {
       }
     }
   }
-
-  private countResult(playerHand: TCard[]): number {
-    let res: number = 0;
-    playerHand.forEach((card: TCard) => {
-      return (res += card.score);
-    });
-    if (JSON.stringify(playerHand) === JSON.stringify(this.gamerCards)) {
-      this.gamerResult = res;
-    } else {
-      this.bankerResult = res;
-    }
-    return res;
-  }
   public stopTakingCards(): void {
     this.isStopTakingCards = true;
     this.showBankerCards = true;
-    this.gamerResult = this.countResult(this.gamerCards);
-    this.bankerResult = this.countResult(this.bankerCards);
+    this.gamerResult = this._countResult(this.gamerCards);
+    this.bankerResult = this._countResult(this.bankerCards);
 
     if (this.bankerResult < 15) {
-      this.takeRandomCard(this.bankerCards, this.newDeckOfCards);
-      this.bankerResult = this.countResult(this.bankerCards);
+      this._takeRandomCard(this.bankerCards, this._newDeckOfCards);
+      this.bankerResult = this._countResult(this.bankerCards);
     }
 
     if (this.bankerResult > 21 || this.bankerResult < this.gamerResult) {
@@ -321,5 +300,25 @@ export class AppComponent {
       this.showGameResult = true;
       this.gameResult = 'Vova! You Lost!';
     }
+  }
+
+  private _takeRandomCard(playerHand: TCard[], deckOfCards: TCard[]): void {
+    const randomNum: number = Math.floor(Math.random() * (this.deckOfCards.length - 1) + 1);
+    const card: TCard = deckOfCards[randomNum];
+    playerHand.push(card);
+    deckOfCards.splice(randomNum, 1);
+  }
+
+  private _countResult(playerHand: TCard[]): number {
+    let res: number = 0;
+    playerHand.forEach((card: TCard) => {
+      return (res += card.score);
+    });
+    if (JSON.stringify(playerHand) === JSON.stringify(this.gamerCards)) {
+      this.gamerResult = res;
+    } else {
+      this.bankerResult = res;
+    }
+    return res;
   }
 }
