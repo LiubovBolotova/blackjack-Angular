@@ -1,0 +1,26 @@
+<section class="field">
+  <div class="bankerResultField" *ngIf="isStopTakingCards">{{ bankerResult }}</div>
+  <div class="cardsWrapper">
+    <div class="bankerCards" *ngFor="let card of bankerCards">
+      <img [src]="'/assets/back.jpg'" alt="" *ngIf="!showBankerCards" />
+
+      <img [src]="'/assets/' + card.suit + '_' + card.name + '.png'" alt="" *ngIf="showBankerCards" />
+    </div>
+  </div>
+
+  <div class="allGameResult" *ngIf="showGameResult">{{ gameResult }}</div>
+  <div class="buttons">
+    <button type="button" class="start" (click)="startGame()" *ngIf="!isStartGame">{{ startGameText }}</button>
+    <div class="action-buttons" *ngIf="isStartGame">
+      <button id="gamer" type="button" (click)="giveCards()">Take</button>
+
+      <button id="stopTaking" type="button" (click)="stopTakingCards()">Stop</button>
+    </div>
+  </div>
+  <div class="cardsWrapper">
+    <div class="gamerCards" *ngFor="let card of gamerCards">
+      <img [src]="'/assets/' + card.suit + '_' + card.name + '.png'" alt="" />
+    </div>
+  </div>
+  <div class="gamerResultField">{{ gamerResult }}</div>
+</section>
