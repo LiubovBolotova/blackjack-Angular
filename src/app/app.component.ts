@@ -1,18 +1,23 @@
 import { Component } from '@angular/core';
-
-type TCard = {
-  score: number;
-  name: string;
-  suit: string;
-};
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  public deckOfCards: TCard[] = [
+  public bankerCards: TCard[] = [];
+  public gamerCards: TCard[] = [];
+  public bankerResult: number;
+  public gamerResult: number;
+  public startGameText: string = 'Start Game!';
+  public isStartGame: boolean = false;
+  public isShowBankerResult: boolean = false;
+  public showBankerCards: boolean = false;
+  public showGameResult: boolean = false;
+  public gameResult: string;
+
+  private _newDeckOfCards: TCard[] = [];
+  private _deckOfCards: TCard[] = [
     {
       score: 6,
       name: '6',
@@ -194,75 +199,46 @@ export class AppComponent {
       suit: 'diamond',
     },
   ];
-  public bankerCards: TCard[] = [];
-  public gamerCards: TCard[] = [];
-  public bankerResult: number;
-  public gamerResult: number;
-  public startGameText: string = 'Start Game!';
-  public isStartGame: boolean = false;
-  public isStopTakingCards: boolean = false;
-  public showBankerCards: boolean = false;
-  public showGameResult: boolean = false;
-  public gameResult: string;
 
-  private _newDeckOfCards: TCard[] = [];
-
-  public constructor() {}
   public startGame(): void {
+    this.isShowBankerResult = false;
     this.showBankerCards = false;
     this.showGameResult = false;
-    this._newDeckOfCards = this.deckOfCards.slice();
+    this._newDeckOfCards = this._deckOfCards.slice();
     this.bankerCards = [];
     this.gamerCards = [];
     this._takeRandomCard(this.gamerCards, this._newDeckOfCards);
     this._takeRandomCard(this.bankerCards, this._newDeckOfCards);
     this.isStartGame = true;
   }
+
   public giveCards(): void {
-    this._takeRandomCard(this.gamerCards, this.deckOfCards);
+    this._takeRandomCard(this.gamerCards, this._deckOfCards);
     this.gamerResult = this._countResult(this.gamerCards);
     this.bankerResult = this._countResult(this.bankerCards);
 
     if (this.gamerResult > 21) {
-      this.isStopTakingCards = true;
-      this.showBankerCards = true;
-      this.showGameResult = true;
-      this.gameResult = 'Vova lost!';
-      this.isStartGame = false;
-      this.startGameText = 'Start New Game?';
-    } else if (this.gamerResult === 21) {
-      this.isStopTakingCards = true;
-      this.showBankerCards = true;
-      this.showGameResult = true;
-      this.gameResult = 'Vova, You won!';
-      this.isStartGame = false;
-      this.startGameText = 'Start New Game?';
-    } else {
-      if (this.bankerResult < 15) {
-        this._takeRandomCard(this.bankerCards, this._newDeckOfCards);
-        this._countResult(this.bankerCards);
-      } else {
-        return;
-      }
-      if (this.bankerResult > 21) {
-        this.isStopTakingCards = true;
-        this.showBankerCards = true;
-        this.showGameResult = true;
-        this.gameResult = 'Vova, You won!';
-        this.startGameText = 'Start New Game?';
-        this.isStartGame = false;
-      } else if (this.bankerResult === 21) {
-        this.isStopTakingCards = true;
-        this.showBankerCards = true;
-        this.showGameResult = true;
-        this.gameResult = 'Vova lost!';
-        this.startGameText = 'Start New Game?';
-        this.isStartGame = false;
-      }
+      this._displayFields('Vova lost!');
+    }
+    if (this.gamerResult === 21) {
+      this._displayFields('Vova, You won!');
+    }
+
+    if (this.bankerResult < 15) {
+      this._takeRandomCard(this.bankerCards, this._newDeckOfCards);
+      this._countResult(this.bankerCards);
+    }
+
+    if (this.bankerResult > 21) {
+      this._displayFields('Vova! You won!');
+    }
+    if (this.bankerResult === 21) {
+      this._displayFields('Vova lost!');
     }
   }
+
   public stopTakingCards(): void {
-    this.isStopTakingCards = true;
+    this.isShowBankerResult = true;
     this.showBankerCards = true;
     this.gamerResult = this._countResult(this.gamerCards);
     this.bankerResult = this._countResult(this.bankerCards);
@@ -273,37 +249,19 @@ export class AppComponent {
     }
 
     if (this.bankerResult > 21 || this.bankerResult < this.gamerResult) {
-      this.isStopTakingCards = true;
-      this.startGameText = 'Start New Game?';
-      this.isStartGame = false;
-      this.showGameResult = true;
-      this.gameResult = 'Vova! You won!';
-    } else if (this.bankerResult === this.gamerResult) {
-      this.isStopTakingCards = true;
-      this.showBankerCards = true;
-      this.startGameText = 'Start New Game?';
-      this.isStartGame = false;
-      this.showGameResult = true;
-      this.gameResult = 'Nobody wins!';
-    } else if (this.bankerResult > this.gamerResult) {
-      this.isStopTakingCards = true;
-      this.showBankerCards = true;
-      this.startGameText = 'Start New Game?';
-      this.isStartGame = false;
-      this.showGameResult = true;
-      this.gameResult = 'Vova! You Lost!';
-    } else if (this.bankerResult === 21) {
-      this.isStopTakingCards = true;
-      this.showBankerCards = true;
-      this.startGameText = 'Start New Game?';
-      this.isStartGame = false;
-      this.showGameResult = true;
-      this.gameResult = 'Vova! You Lost!';
+      this._displayFields('Vova! You won!');
+    }
+
+    if (this.bankerResult === this.gamerResult) {
+      this._displayFields('Nobody wins!');
+    }
+    if (this.bankerResult > this.gamerResult || this.bankerResult === 21) {
+      this._displayFields('Vova! You Lost!');
     }
   }
 
   private _takeRandomCard(playerHand: TCard[], deckOfCards: TCard[]): void {
-    const randomNum: number = Math.floor(Math.random() * (this.deckOfCards.length - 1) + 1);
+    const randomNum: number = Math.floor(Math.random() * (this._deckOfCards.length - 1) + 1);
     const card: TCard = deckOfCards[randomNum];
     playerHand.push(card);
     deckOfCards.splice(randomNum, 1);
@@ -320,5 +278,14 @@ export class AppComponent {
       this.bankerResult = res;
     }
     return res;
+  }
+
+  private _displayFields(allGameResult: string): void {
+    this.isShowBankerResult = true;
+    this.showBankerCards = true;
+    this.showGameResult = true;
+    this.isStartGame = false;
+    this.startGameText = 'Start New Game?';
+    this.gameResult = allGameResult;
   }
 }

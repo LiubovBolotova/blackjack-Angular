@@ -1,5 +1,5 @@
 <section class="field">
-  <div class="bankerResultField" *ngIf="isStopTakingCards">{{ bankerResult }}</div>
+  <div class="bankerResultField" *ngIf="isShowBankerResult">{{ bankerResult }}</div>
   <div class="cardsWrapper">
     <div class="bankerCards" *ngFor="let card of bankerCards">
       <img [src]="'/assets/back.jpg'" alt="" *ngIf="!showBankerCards" />
