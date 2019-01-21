@@ -10,11 +10,12 @@ export class AppComponent {
   public bankerResult: number;
   public gamerResult: number;
   public startGameText: string = 'Start Game!';
-  public isStartGame: boolean = false;
+  public startButtonIsShown: boolean = true;
   public isShowBankerResult: boolean = false;
   public showBankerCards: boolean = false;
   public showGameResult: boolean = false;
   public gameResult: string;
+  public actionButtonsAreShown = false;
 
   private _newDeckOfCards: TCard[] = [];
   private _deckOfCards: TCard[] = [
@@ -201,25 +202,29 @@ export class AppComponent {
   ];
 
   public startGame(): void {
+    this.actionButtonsAreShown = true;
     this.isShowBankerResult = false;
     this.showBankerCards = false;
     this.showGameResult = false;
     this._newDeckOfCards = this._deckOfCards.slice();
     this.bankerCards = [];
     this.gamerCards = [];
+    this.bankerResult;
+    this.gamerResult;
     this._takeRandomCard(this.gamerCards, this._newDeckOfCards);
     this._takeRandomCard(this.bankerCards, this._newDeckOfCards);
-    this.isStartGame = true;
+    this.startButtonIsShown = false;
   }
 
   public giveCards(): void {
-    this._takeRandomCard(this.gamerCards, this._deckOfCards);
+    this._takeRandomCard(this.gamerCards, this._newDeckOfCards);
     this.gamerResult = this._countResult(this.gamerCards);
     this.bankerResult = this._countResult(this.bankerCards);
 
     if (this.gamerResult > 21) {
       this._displayFields('Vova lost!');
     }
+
     if (this.gamerResult === 21) {
       this._displayFields('Vova, You won!');
     }
@@ -232,14 +237,15 @@ export class AppComponent {
     if (this.bankerResult > 21) {
       this._displayFields('Vova! You won!');
     }
+
     if (this.bankerResult === 21) {
       this._displayFields('Vova lost!');
     }
+
   }
 
   public stopTakingCards(): void {
     this.isShowBankerResult = true;
-    this.showBankerCards = true;
     this.gamerResult = this._countResult(this.gamerCards);
     this.bankerResult = this._countResult(this.bankerCards);
 
@@ -255,13 +261,14 @@ export class AppComponent {
     if (this.bankerResult === this.gamerResult) {
       this._displayFields('Nobody wins!');
     }
+
     if (this.bankerResult > this.gamerResult || this.bankerResult === 21) {
       this._displayFields('Vova! You Lost!');
     }
   }
 
   private _takeRandomCard(playerHand: TCard[], deckOfCards: TCard[]): void {
-    const randomNum: number = Math.floor(Math.random() * (this._deckOfCards.length - 1) + 1);
+    const randomNum: number = Math.ceil(Math.random() * (deckOfCards.length - 1));
     const card: TCard = deckOfCards[randomNum];
     playerHand.push(card);
     deckOfCards.splice(randomNum, 1);
@@ -269,7 +276,9 @@ export class AppComponent {
 
   private _countResult(playerHand: TCard[]): number {
     let res: number = 0;
+
     playerHand.forEach((card: TCard) => {
+      console.log(this.bankerCards);
       return (res += card.score);
     });
     if (JSON.stringify(playerHand) === JSON.stringify(this.gamerCards)) {
@@ -277,6 +286,7 @@ export class AppComponent {
     } else {
       this.bankerResult = res;
     }
+
     return res;
   }
 
@@ -284,8 +294,9 @@ export class AppComponent {
     this.isShowBankerResult = true;
     this.showBankerCards = true;
     this.showGameResult = true;
-    this.isStartGame = false;
+    this.startButtonIsShown = true;
     this.startGameText = 'Start New Game?';
     this.gameResult = allGameResult;
+
   }
 }
