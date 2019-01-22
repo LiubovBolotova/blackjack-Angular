@@ -4,29 +4,39 @@
   </div>
 
   <div class="cardsWrapper">
-    <div class="bankerCards" *ngFor="let card of bankerCards">
-      <img [src]="'/assets/back.jpg'" *ngIf="!showBankerCards" />
+    <div class="bankerCards" 
+        *ngFor="let card of bankerCards">
+      <img [src]="'/assets/back.jpg'" 
+          *ngIf="!showBankerCards" />
 
-      <img [src]="'/assets/' + card.suit + '_' + card.name + '.png'" *ngIf="showBankerCards" />
+      <img [src]="'/assets/' + card.suit + '_' + card.name + '.png'" 
+          *ngIf="showBankerCards" />
     </div>
   </div>
 
-  <div class="allGameResult" *ngIf="showGameResult">
+  <div class="allGameResult" 
+      *ngIf="showGameResult">
     {{ gameResult }}
   </div>
 
-  <div class="buttons" *ngIf="actionButtonsAreShown">
-    <button type="button" [disabled]="showGameResult" (click)="giveNewCards()">
-      Take
+  <div class="buttons" 
+      *ngIf="actionButtonsAreShown">
+    <button type="button" 
+            [disabled]="showGameResult" 
+            (click)="giveNewCards()">
+        Take
     </button>
 
-    <button type="button" [disabled]="showGameResult" (click)="stopTakingNewCards()">
-      Stop
+    <button type="button" 
+            [disabled]="showGameResult" 
+            (click)="stopedTakingCards.emit()">
+        Stop
     </button>
   </div>
 
   <div class="cardsWrapper">
-    <div class="gamerCards" *ngFor="let card of gamerCards">
+    <div class="gamerCards" 
+        *ngFor="let card of gamerCards">
       <img [src]="'/assets/' + card.suit + '_' + card.name + '.png'" />
     </div>
   </div>

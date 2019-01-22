@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
+
+
 export class AppComponent {
   public bankerCards: TCard[] = [];
   public gamerCards: TCard[] = [];
@@ -15,7 +18,8 @@ export class AppComponent {
   public showBankerCards: boolean = false;
   public showGameResult: boolean = false;
   public gameResult: string;
-  public actionButtonsAreShown = false;
+  public actionButtonsAreShown: boolean = false;
+
 
   private _newDeckOfCards: TCard[] = [];
   private _deckOfCards: TCard[] = [
@@ -209,8 +213,8 @@ export class AppComponent {
     this._newDeckOfCards = this._deckOfCards.slice();
     this.bankerCards = [];
     this.gamerCards = [];
-    this.bankerResult;
-    this.gamerResult;
+    this.bankerResult = 0;
+    this.gamerResult = 0;
     this._takeRandomCard(this.gamerCards, this._newDeckOfCards);
     this._takeRandomCard(this.bankerCards, this._newDeckOfCards);
     this.startButtonIsShown = false;
@@ -278,7 +282,6 @@ export class AppComponent {
     let res: number = 0;
 
     playerHand.forEach((card: TCard) => {
-      console.log(this.bankerCards);
       return (res += card.score);
     });
     if (JSON.stringify(playerHand) === JSON.stringify(this.gamerCards)) {

@@ -4,20 +4,21 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
-  // host: { class: 'buttons button' },
 })
+
+
 export class SidebarComponent implements OnInit {
-  constructor() { }
 
-  ngOnInit() { }
+  @Input() public startText: string;
+  @Input() public isStartButtonShown: boolean;
 
-  @Input() public startText;
-  @Input() public isStartButtonShown;
 
   @Output()
-  public newGameStarted = new EventEmitter<void>();
+  public newGameStarted: EventEmitter<void> = new EventEmitter<void>();
 
-  public startNewGame() {
+  public ngOnInit(): void { }
+
+  public startNewGame(): void {
     this.newGameStarted.emit();
   }
 }
