@@ -1,13 +1,14 @@
 /* tslint:disable */
 
-// import {Routes} from '@angular/router';
-// import { SidebarComponent } from './app.component/sidebar/sidebar.component';
-// import { FieldComponentComponent } from './app.component/field-component/field-component.component';
+import { Routes} from '@angular/router';
+import { MenuComponent } from './app-component/menu/menu.component';
+import { GameComponent } from './app-component/game/game.component';
+import { PageNotFoundComponent } from './app.component/page-not-found/page-not-found.component';
 
-// export const routes: Routes = [
-//   { path: "field", component: FieldComponentComponent },
-//   { path: "sidebar", component: SidebarComponent },
-//   { path: "", redirectTo: "sidebar" },
-//   { path: "**", redirectTo: "sidebar" }
 
-// ];
+export const routes: Routes = [
+  { path: "game", component: GameComponent },
+  { path: "menu", component: MenuComponent },
+  { path: "", component: MenuComponent},
+  { path: "**", component: PageNotFoundComponent}
+];

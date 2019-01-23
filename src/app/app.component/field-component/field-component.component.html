@@ -1,16 +1,16 @@
 <section class="field">
-  <div class="bankerResultField" *ngIf="isShowBankerResult">
-    {{ bankerResult }}
+  <div class="bankerResultField" *ngIf="showGameResult">
+    {{ players.bankerResult }}
   </div>
 
   <div class="cardsWrapper">
     <div class="bankerCards" 
-        *ngFor="let card of bankerCards">
+        *ngFor="let card of players.bankerCards">
       <img [src]="'/assets/back.jpg'" 
-          *ngIf="!showBankerCards" />
+          *ngIf="!showGameResult" />
 
       <img [src]="'/assets/' + card.suit + '_' + card.name + '.png'" 
-          *ngIf="showBankerCards" />
+          *ngIf="showGameResult" />
     </div>
   </div>
 
@@ -36,12 +36,12 @@
 
   <div class="cardsWrapper">
     <div class="gamerCards" 
-        *ngFor="let card of gamerCards">
+        *ngFor="let card of players.gamerCards">
       <img [src]="'/assets/' + card.suit + '_' + card.name + '.png'" />
     </div>
   </div>
 
   <div class="gamerResultField">
-    {{ gamerResult }}
+    {{ players.gamerResult }}
   </div>
 </section>

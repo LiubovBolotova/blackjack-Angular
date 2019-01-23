@@ -1,23 +1,5 @@
 <body>
-  <app-sidebar class="sideber" 
-    [startText]="startGameText" 
-    [isStartButtonShown]="startButtonIsShown" 
-    (newGameStarted)="startGame($event)">
-  </app-sidebar>
 
-  <app-field-component class="field-component" 
-    [bankerCards]="bankerCards" 
-    [gamerCards]="gamerCards"
-    [actionButtonsAreShown]="actionButtonsAreShown" 
-    [bankerResult]="bankerResult" 
-    [showBankerCards]="showBankerCards"
-    [gamerResult]="gamerResult" 
-    [showGameResult]="showGameResult" 
-    [gameResult]="gameResult" 
-    [isShowBankerResult]="isShowBankerResult"
-    (gaveCards)="giveCards($event)" 
-    (stopedTakingCards)="stopTakingCards()">
-  </app-field-component>
+<router-outlet></router-outlet>
 
-  <!-- <router-outlet></router-outlet> -->
 </body>
