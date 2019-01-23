@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css'],
-  host: { class:'sidebar field' }
+  host: { class: 'sidebar field' }
 })
 
 export class GameComponent {
