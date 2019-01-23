@@ -9,8 +9,11 @@ div.gamerCards img {
 
 .cardsWrapper {
   margin: auto;
+  height: 250px;
+  padding: 10px;
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
 }
 
@@ -19,10 +22,13 @@ button:hover {
   transition-duration: 0.5s;
 }
 .buttons {
+  height: 100px;
+  padding: 10px;
   margin: 0;
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 button {
   width: 100px;
@@ -35,12 +41,12 @@ button {
 }
 
 .field {
-  width: 100%;
-  height: 950px;
+ 
   display: flex;
-  align-items: center;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+
 }
 
 .gamerResultField,
@@ -55,7 +61,6 @@ button {
 .allGameResult {
   position: absolute;
   margin: 0 auto;
-  margin-top: 200px;
   min-width: 400px;
   transition: 0.3s;
   box-shadow: 0 0 30px red;

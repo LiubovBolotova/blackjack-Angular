@@ -1,26 +1,27 @@
 <section class="field">
-  <div class="bankerResultField" *ngIf="showGameResult">
+  <div class="bankerResultField" 
+       *ngIf="showGameResult">
     {{ players.bankerResult }}
   </div>
 
   <div class="cardsWrapper">
     <div class="bankerCards" 
-        *ngFor="let card of players.bankerCards">
+         *ngFor="let card of players.bankerCards">
       <img [src]="'/assets/back.jpg'" 
           *ngIf="!showGameResult" />
 
       <img [src]="'/assets/' + card.suit + '_' + card.name + '.png'" 
-          *ngIf="showGameResult" />
+           *ngIf="showGameResult" />
     </div>
   </div>
 
   <div class="allGameResult" 
-      *ngIf="showGameResult">
+       *ngIf="showGameResult">
     {{ gameResult }}
   </div>
 
   <div class="buttons" 
-      *ngIf="actionButtonsAreShown">
+       *ngIf="actionButtonsAreShown">
     <button type="button" 
             [disabled]="showGameResult" 
             (click)="giveNewCards()">
@@ -36,7 +37,7 @@
 
   <div class="cardsWrapper">
     <div class="gamerCards" 
-        *ngFor="let card of players.gamerCards">
+         *ngFor="let card of players.gamerCards">
       <img [src]="'/assets/' + card.suit + '_' + card.name + '.png'" />
     </div>
   </div>

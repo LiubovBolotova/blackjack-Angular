@@ -1,0 +1,16 @@
+<section class = "sidebar">
+<button (click)="startNewGame()" 
+         *ngIf="isStartButtonShown" 
+         type="button" 
+         class="start">
+    {{ startText }}
+</button>
+
+<button (click)="startNewGame()" 
+         *ngIf="isStartButtonShown" 
+         type="button" 
+         class="start">
+         
+         <a routerLink = "/menu">Go to Menu</a>
+</button>
+</section>

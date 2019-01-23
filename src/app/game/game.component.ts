@@ -3,8 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  styleUrls: ['./game.component.css'],
+  host: {class:'sidebar field'}
 })
+
 export class GameComponent {
   public startGameText: string = 'Start Game!';
   public startButtonIsShown: boolean = true;
@@ -17,7 +19,7 @@ export class GameComponent {
     bankerCards: [],
     gamerCards: [],
     bankerResult: 0,
-    gamerResult: 0,
+    gamerResult: undefined,
   };
 
 
@@ -287,7 +289,7 @@ export class GameComponent {
   private _displayFields(allGameResult: string): void {
     this.showGameResult = true;
     this.startButtonIsShown = true;
-    this.startGameText = 'Start New Game?';
+    this.startGameText = 'New Game?';
     this.gameResult = allGameResult;
 
   }

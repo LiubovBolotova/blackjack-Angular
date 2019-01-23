@@ -5,12 +5,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { routes } from './routs'
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './app.component/sidebar/sidebar.component';
-import { FieldComponentComponent } from './app.component/field-component/field-component.component';
-import { MenuComponent } from './app-component/menu/menu.component';
-import { GameComponent } from './app-component/game/game.component';
+import { SidebarComponent } from './game/sidebar/sidebar.component';
+import { FieldComponentComponent } from './game/field-component/field-component.component';
+import { MenuComponent } from './menu/menu.component';
+import { GameComponent } from './game/game.component';
 import { RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from './app.component/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
