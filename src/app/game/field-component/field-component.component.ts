@@ -13,7 +13,7 @@ export class FieldComponentComponent {
   @Input() public players: { bankerCards: TCard[], gamerCards: TCard[], bankerResult: number, gamerResult: number };
 
   @Output() public gaveCards: EventEmitter<void> = new EventEmitter();
-  @Output() public stopedTakingCards: EventEmitter<void> = new EventEmitter();
+  @Output() public stoppedTakingCards: EventEmitter<void> = new EventEmitter();
 
 
   public giveNewCards(): void {

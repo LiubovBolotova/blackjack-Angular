@@ -14,7 +14,7 @@ export class GameComponent {
   public gameResult: string;
   public actionButtonsAreShown: boolean = false;
 
-  public players: {bankerCards: TCard[], gamerCards: TCard[], bankerResult: number, gamerResult: number } =
+  public players: TPlayers =
   {
     bankerCards: [],
     gamerCards: [],
@@ -207,6 +207,7 @@ export class GameComponent {
     },
   ];
 
+
   public startGame(): void {
     this.actionButtonsAreShown = true;
     this.showGameResult = false;
@@ -270,6 +271,7 @@ export class GameComponent {
     }
   }
 
+
   private _takeRandomCard(playerHand: TCard[], deckOfCards: TCard[]): void {
     const randomNum: number = Math.ceil(Math.random() * (deckOfCards.length - 1));
     const card: TCard = deckOfCards[randomNum];
@@ -278,13 +280,12 @@ export class GameComponent {
   }
 
   private _countResult(playerHand: TCard[]): number {
-    let result: number = 0;
+        const myResult: number = playerHand.reduce((result: number, card: TCard): number =>  {
 
-    playerHand.forEach((card: TCard) => {
-      return (result += card.score);
-    });
-    return result;
-  }
+          return result += card.score;
+        }, 0);
+        return myResult;
+      }
 
   private _displayFields(allGameResult: string): void {
     this.showGameResult = true;

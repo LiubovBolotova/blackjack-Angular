@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'game-sidebar',
@@ -7,16 +7,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 
 
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
   @Input() public startText: string;
   @Input() public isStartButtonShown: boolean;
 
-
   @Output()
   public newGameStarted: EventEmitter<void> = new EventEmitter<void>();
-
-  public ngOnInit(): void { }
 
   public startNewGame(): void {
     this.newGameStarted.emit();

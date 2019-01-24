@@ -1,15 +1,15 @@
-<game-sidebar class="sideber" 
+<game-sidebar 
               [startText]="startGameText" 
               [isStartButtonShown]="startButtonIsShown" 
               (newGameStarted)="startGame()">
 </game-sidebar>
 
-<game-field-component class="field-component" 
+<game-field-component  
                       [actionButtonsAreShown]="actionButtonsAreShown" 
                       [showGameResult]="showGameResult" 
                       [gameResult]="gameResult" 
                       [players] = "players"
                       (gaveCards)="giveCards()" 
-                      (stopedTakingCards)="stopTakingCards()">
+                      (stoppedTakingCards)="stopTakingCards()">
 </game-field-component>
 
