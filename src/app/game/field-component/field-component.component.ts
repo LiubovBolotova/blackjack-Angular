@@ -5,6 +5,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   templateUrl: './field-component.component.html',
   styleUrls: ['./field-component.component.css'],
 })
+
 export class FieldComponentComponent {
 
   @Input() public actionButtonsAreShown: boolean;
