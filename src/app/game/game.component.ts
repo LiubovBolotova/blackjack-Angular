@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ServisesService } from '../servises.service';
+import { GameService } from '../game.service';
 
 @Component({
   selector: 'app-game',
@@ -20,11 +20,11 @@ export class GameComponent {
     bankerCards: [],
     gamerCards: [],
     bankerResult: 0,
-    gamerResult: undefined,
+    gamerResult: 0,
   };
 
   public constructor(
-    private _servisesService: ServisesService
+    private _servisesService: GameService
   ) {}
 
   public startGame(): void {
@@ -45,11 +45,11 @@ export class GameComponent {
     this.players.gamerResult = this._servisesService.countResult(this.players.gamerCards);
     this.players.bankerResult = this._servisesService.countResult(this.players.bankerCards);
 
-    if (this.players.gamerResult > 21) {
+    if (this.players.gamerResult > 21 && this.players.bankerResult < 21 ) {
       this._displayFields('Vova lost!');
     }
 
-    if (this.players.gamerResult === 21) {
+    if (this.players.gamerResult === 21 && this.players.bankerResult !== 21) {
       this._displayFields('Vova, You won!');
     }
 
@@ -58,14 +58,17 @@ export class GameComponent {
       this.players.bankerResult = this._servisesService.countResult(this.players.bankerCards);
     }
 
-    if (this.players.bankerResult > 21) {
+    if (this.players.bankerResult > 21 && this.players.gamerResult < 21) {
       this._displayFields('Vova! You won!');
     }
 
     if (this.players.bankerResult === 21) {
-      this._displayFields('Vova lost!');
+      this._displayFields('Vova! You Lost!');
     }
 
+    if (this.players.bankerResult === this.players.gamerResult) {
+      this._displayFields('Nobody wins!');
+    }
   }
 
   public stopTakingCards(): void {
@@ -103,6 +106,5 @@ export class GameComponent {
     this.startButtonIsShown = true;
     this.startGameText = 'New Game?';
     this.gameResult = allGameResult;
-
   }
 }

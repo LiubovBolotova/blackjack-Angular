@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ServisesService {
+@Injectable()
+
+export class GameService {
   private readonly _DECK_OF_CARDS: TCard[] = [
     {
       score: 6,

@@ -8,5 +8,5 @@ type TPlayers = {
    bankerCards: TCard[],
    gamerCards: TCard[],
    bankerResult: number,
-   gamerResult: number
+   gamerResult: number,
   };
