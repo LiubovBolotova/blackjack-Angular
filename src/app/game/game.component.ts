@@ -23,9 +23,9 @@ export class GameComponent {
     gamerResult: undefined,
   };
 
-  constructor(
+  public constructor(
     private _servisesService: ServisesService
-  ){}
+  ) {}
 
   public startGame(): void {
     this.actionButtonsAreShown = true;

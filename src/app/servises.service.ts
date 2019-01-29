@@ -188,7 +188,7 @@ export class ServisesService {
   ];
 
 
-  public getDeck():TCard[] {
+  public getDeck(): TCard[] {
     return this._DECK_OF_CARDS.slice();
   }
 
