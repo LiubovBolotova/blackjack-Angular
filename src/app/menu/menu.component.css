@@ -10,12 +10,13 @@ font-weight: bold;
 font-size: 25px;
 margin: 0 auto;
 color: antiquewhite;
+text-decoration: none;
+text-align: center;
 }
 
 div {
-    widows: 100%;
-    height: 100%;
-    background-color: brown;
+    width: 100%;
+    height: inherit;
     display: flex;
     align-items: center;
     justify-content: center;

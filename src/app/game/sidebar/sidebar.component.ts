@@ -13,7 +13,7 @@ export class SidebarComponent {
   @Input() public isStartButtonShown: boolean;
 
   @Output()
-  public newGameStarted: EventEmitter<void> = new EventEmitter<void>();
+  public newGameStarted: EventEmitter<void> = new EventEmitter();
 
   public startNewGame(): void {
     this.newGameStarted.emit();

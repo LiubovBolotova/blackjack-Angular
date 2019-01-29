@@ -9,6 +9,7 @@ import { MenuComponent } from './menu/menu.component';
 import { GameComponent } from './game/game.component';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ServisesService } from './servises.service';
 
 
 @NgModule({
@@ -18,12 +19,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     FieldComponentComponent,
     MenuComponent,
     GameComponent,
-    PageNotFoundComponent],
+    PageNotFoundComponent,
+    ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(routes)],
-  providers: [],
-  bootstrap: [AppComponent],
+    providers: [ServisesService],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}
